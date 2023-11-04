@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+SCRIPT_PATH=$(dirname $0)
+
+if [[ $# != 2 ]]; then
+   echo Usage: mdsplit file.txt key
+   exit 1
+fi
+
+if [[ ! -f "$1" ]]; then
+   echo File not found: "$1"
+   exit 1
+fi
+FILENAME="$1"
+KEY="$2"
+
+python3 ${SCRIPT_PATH}/mdp.py ${FILENAME} -p \\[${KEY}\\] -s > ${FILENAME}.${KEY}
+python3 ${SCRIPT_PATH}/mdp.py ${FILENAME} -p \\[${KEY}\\] -s -r > ${FILENAME}.wo_${KEY}
+
+# for test
+TEST=$(diff <(cat ${FILENAME}.${KEY} ${FILENAME}.wo_${KEY} | sort) <(sort ${FILENAME}))
+echo $TEST
