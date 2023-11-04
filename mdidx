@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+import sys
+import glob
+import urllib.parse
+
+args = sys.argv
+
+template = '''
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<ul>
+{}
+</ul>
+</body>
+</html>
+'''
+
+pat = args[1] + '/**/*.md'
+s = ''
+for f in glob.glob(pat, recursive=True):
+    s += '<li><a href="{}">{}</li>'.format(urllib.parse.quote(f), f.replace(args[1] + '/', ''))
+print(template.format(s))
