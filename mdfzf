@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+PATTERN=$(mdp ${1} | fzf)
+mdp ${1} -p "${PATTERN}" -s -n

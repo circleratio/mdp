@@ -29,7 +29,11 @@ def print_section(regex, print_body):
 
 def main():
     if args.pattern:
-        print_section(args.pattern, args.section)
+        if args.noregexp:
+            pattern = re.escape(args.pattern)
+        else:
+            pattern = args.pattern
+        print_section(pattern, args.section)
     else:
         print_section('.*', args.section)
         
@@ -39,6 +43,7 @@ if __name__ == "__main__":
     parser.add_argument('-p', '--pattern', help='regex to match a header')
     parser.add_argument('-s', '--section', action='store_true', help='print section body')
     parser.add_argument('-r', '--reverse', action='store_true', help='print unmatched section')
+    parser.add_argument('-n', '--noregexp', action='store_true', help='suppress regexp matching')
     args = parser.parse_args()
 
     main()
