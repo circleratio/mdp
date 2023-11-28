@@ -1,5 +1,5 @@
 DEST=~/bin
-FILES='mdp.py mdsplit mdsplit-tag mdfzf'
+FILES='mdsplit mdsplit-tag mdfzf'
 
 echo Installing at ${DEST}
 for f in ${FILES}; do
